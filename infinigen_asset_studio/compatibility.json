@@ -1,0 +1,28 @@
+{
+  "studio_version": "0.2.0",
+  "host_blender_minimum": [4, 2, 0],
+  "tested_host_blender": "4.2.0",
+  "infinigen_version": "1.19.0",
+  "commit": "01c39c7f7adcf7363ccbcc57c64410c69f4a4e7c",
+  "source_sha256": "a1c7630b7a4555a241f2392cd0f84469a06dee6b4db868541c6b619a798e3980",
+  "repository": "https://github.com/princeton-vl/infinigen",
+  "python": "3.11",
+  "worker_bpy": "4.2.0",
+  "submodules": [
+    {"path": "infinigen/infinigen_gpl", "repository": "princeton-vl/infinigen_gpl", "commit": "10c1d76f5c35003e919be7265185c9c355e3b70c", "sha256": "11fd2eb94152fabfaff3de2a8a456d2255d7c949c008a20b41a8b50423d07607"},
+    {"path": "infinigen/OcMesher", "repository": "princeton-vl/OcMesher", "commit": "bb895a01b8f574da10be1df470210df7463a75c7", "sha256": "17e744f9da3b3ef4e31b86ad22e65fe68dd976a62cd7627aa19e4047273b1c64"},
+    {"path": "infinigen/datagen/customgt/dependencies/glm", "repository": "g-truc/glm", "commit": "cc98465e3508535ba8c7f6208df934c156a018dc", "sha256": "06d48e336857777d2d1f7da9ccd59e4b9d79720dbd70886d48837d19cda997bb"}
+  ],
+  "bootstrap": {
+    "Linux-x86_64": {
+      "url": "https://repo.anaconda.com/miniconda/Miniconda3-py311_24.11.1-0-Linux-x86_64.sh",
+      "sha256": "807774bae6cd87132094458217ebf713df436f64779faf9bb4c3d4b6615c1e3a"
+    }
+  },
+  "known_limitations": [
+    "Native Windows terrain is unsupported by this upstream version; use WSL2 for full worlds.",
+    "Scene tasks require worker bpy exactly 4.2.0.",
+    "Upstream scene reproducibility is not guaranteed on every platform.",
+    "Partial scene solver regeneration, fluid simulation and annotation binaries are not managed here."
+  ]
+}

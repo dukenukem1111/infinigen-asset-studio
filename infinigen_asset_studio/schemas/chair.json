@@ -1,0 +1,11 @@
+{
+  "generator": "infinigen.assets.objects.seating.chairs.chair.ChairFactory",
+  "parameters": [
+    {"name": "width", "display_name": "Seat Width", "tooltip": "Width of the chair seat in meters. The installed generator samples 0.4–0.5 meters."},
+    {"name": "size", "display_name": "Seat Depth", "tooltip": "Front-to-back size of the seat in meters."},
+    {"name": "leg_height", "display_name": "Seat Height", "tooltip": "Length of the chair legs below the seat, in meters."},
+    {"name": "back_height", "display_name": "Backrest Height", "tooltip": "Height of the backrest above the seat, in meters."},
+    {"name": "has_arm", "display_name": "Armrests", "tooltip": "Include left and right armrests."},
+    {"name": "back_type", "display_name": "Backrest Style", "type": "enum", "default": "whole", "enum_values": ["whole", "partial", "horizontal-bar", "vertical-bar"], "tooltip": "Choose a solid, partial, or bar backrest. Studio calls post_init to rebuild the derived profile.", "advanced": false}
+  ]
+}

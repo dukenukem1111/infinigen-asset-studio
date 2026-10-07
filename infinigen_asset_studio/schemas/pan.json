@@ -1,0 +1,9 @@
+{
+  "generator": "infinigen.assets.objects.tableware.pan.PanFactory",
+  "parameters": [
+    {"name": "depth", "display_name": "Pan Depth", "tooltip": "Depth of the pan before the generator's overall scale is applied."},
+    {"name": "scale", "display_name": "Overall Size", "tooltip": "Overall scale applied by the pan generator, in meters."},
+    {"name": "x_handle", "display_name": "Handle Length", "tooltip": "Handle length relative to the pan's base radius, before overall scale.", "advanced": false},
+    {"name": "has_handle", "display_name": "Include Handle", "tooltip": "Include the pan handle."}
+  ]
+}
