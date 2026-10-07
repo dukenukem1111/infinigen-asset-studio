@@ -6,7 +6,7 @@ not imply endorsement.
 
 The release ZIP contains original integration code and small original schemas;
 it does not contain Infinigen, Blender, Python runtimes or their dependencies.
-The managed installer retains upstream LICENSE files in downloaded sources.
+The managed installer retains upstream `LICENSE` files in downloaded sources.
 
 | Dependency | Pinned source | License / notices |
 | --- | --- | --- |
