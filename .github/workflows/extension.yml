@@ -1,0 +1,49 @@
+name: Build Blender extension
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'extension/**'
+      - 'infinigen_asset_studio/**'
+      - 'scripts/build_extension.py'
+      - 'docs/extension_setup.md'
+      - 'LICENSE'
+      - 'THIRD_PARTY_LICENSES.md'
+      - '.github/workflows/extension.yml'
+  pull_request:
+    paths:
+      - 'extension/**'
+      - 'infinigen_asset_studio/**'
+      - 'scripts/build_extension.py'
+      - 'docs/extension_setup.md'
+      - '.github/workflows/extension.yml'
+permissions:
+  contents: read
+jobs:
+  extension:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download Blender from its official archive
+        working-directory: ${{ runner.temp }}
+        run: |
+          curl --fail --location --output blender.tar.xz https://download.blender.org/release/Blender4.2/blender-4.2.0-linux-x64.tar.xz
+          curl --fail --location --output checksums.txt https://download.blender.org/release/Blender4.2/blender-4.2.0.sha256
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          lines = Path('checksums.txt').read_text().splitlines()
+          entry = next(line.split() for line in lines if line.endswith('blender-4.2.0-linux-x64.tar.xz'))
+          assert hashlib.sha256(Path('blender.tar.xz').read_bytes()).hexdigest() == entry[0]
+          PY
+          tar -xf blender.tar.xz
+      - name: Build and validate extension
+        run: python scripts/build_extension.py --blender "${{ runner.temp }}/blender-4.2.0-linux-x64/blender"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Blender-extension
+          path: dist/infinigen_asset_studio-*.zip*

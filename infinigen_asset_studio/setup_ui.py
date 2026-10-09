@@ -12,6 +12,7 @@ from bpy_extras.io_utils import ExportHelper, ImportHelper
 from . import bridge, history, scenes
 from .core import write_json
 from .installation import InfinigenInstallationManager, MANIFEST
+from .distribution import require_dependency_management
 
 
 def ui():
@@ -108,6 +109,9 @@ class STUDIO_OT_Setup(bpy.types.Operator):
                 state.status = "Host diagnostics ready · Copy Diagnostics to inspect"
                 return {"FINISHED"}
             if self.action in {"install", "repair", "update", "remove"}:
+                require_dependency_management()
+                if self.action != "remove" and not bpy.app.online_access:
+                    raise ValueError("Enable Allow Online Access in Blender Preferences before downloading dependencies.")
                 if self.action == "install":
                     value = manager.managed_settings(prefs.distribution)
                 else:
@@ -269,7 +273,12 @@ class STUDIO_OT_Utility(bpy.types.Operator):
             if str(path).endswith(".blend"):
                 if not Path(path).is_file():
                     raise ValueError("Generated file is missing")
-                subprocess.Popen([bpy.app.binary_path, path, "--python", str(Path(__file__).with_name("scene_open.py"))], creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
+                from .distribution import is_extension
+                command = [bpy.app.binary_path, path]
+                if is_extension():
+                    command += ["--addons", __package__]
+                command += ["--python", str(Path(__file__).with_name("scene_open.py")), "--", __package__]
+                subprocess.Popen(command, creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
             else:
                 bpy.ops.wm.path_open(filepath=str(path))
             return {"FINISHED"}

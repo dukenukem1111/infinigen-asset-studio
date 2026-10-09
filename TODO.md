@@ -31,5 +31,5 @@
 - Add controls for native single-room floor plan dimensions and supported styles, beyond wall height and room type restrictions.
 - Add support for partial scene regeneration through the native solver.
 - Add shader baking and verify full-scene Geometry Nodes instance conversion for each export format.
-- Add an official Blender Extensions manifest and distribution, beyond the working legacy installable ZIP.
+- Complete Blender ID submission and moderator review for the prepared extension distribution.
 - Test more engine versions, room and environment configs, and GPU render modes with real generation jobs.

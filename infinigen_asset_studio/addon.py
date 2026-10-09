@@ -15,6 +15,7 @@ from bpy_extras.io_utils import ExportHelper, ImportHelper
 from . import bridge, scene_tools as tools
 from . import history, scenes, setup_ui, scene_ui
 from .installation import InfinigenInstallationManager, data_directory, MANIFEST
+from .distribution import is_extension
 from .core import SCHEMA_VERSION, randomize, read_metadata, safe_name, validate_parameters, write_json
 
 logger = logging.getLogger(__name__)
@@ -1101,7 +1102,11 @@ class STUDIO_PT_Setup(StudioPanel, bpy.types.Panel):
         if not active:
             controls.label(text="Infinigen is required to generate content.")
             controls.operator("studio.setup", text="Find Existing Installation", icon="VIEWZOOM").action = "detect"
-            controls.operator("studio.setup", text="Install Infinigen Automatically", icon="IMPORT").action = "install"
+            if is_extension():
+                controls.label(text="Install Infinigen outside Blender first.")
+                controls.label(text="See the extension setup guide.")
+            else:
+                controls.operator("studio.setup", text="Install Infinigen Automatically", icon="IMPORT").action = "install"
             controls.label(text="Windows worlds require WSL2 + Linux build tools.")
             controls.label(text="Setup never changes Blender's Python.")
             controls.operator("studio.setup", text="Run Host Diagnostics").action = "diagnostics"
@@ -1113,7 +1118,7 @@ class STUDIO_PT_Setup(StudioPanel, bpy.types.Panel):
             row = controls.row(align=True)
             row.operator("studio.setup", text="Diagnostics").action = "diagnostics"
             row.operator("studio.setup", text="Self Test").action = "selftest"
-            if active.get("managed"):
+            if active.get("managed") and not is_extension():
                 row = controls.row(align=True)
                 row.operator("studio.setup", text="Repair").action = "repair"
                 row.operator("studio.setup", text="Install Recommended").action = "update"

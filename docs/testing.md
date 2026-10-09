@@ -134,3 +134,42 @@ Not yet validated: managed macOS/native Windows installation, every factory or
 environment config, newer host/worker Blender releases, fluid simulation,
 annotation pipelines, arbitrary scene solver bindings, and CUDA/OptiX scene renders.
 Device availability is reported, but only CPU scene rendering was exercised here.
+
+## Extension 0.2.1 candidate validation — 8 October 2026
+
+The separate extension package was built and validated with Blender 4.2.0's official
+extension commands. It advertises Blender 4.2.x on Windows x64 and Linux x64.
+Windows Blender and the existing WSL Infinigen runtime were used for integration tests.
+
+| Check | Result |
+| --- | --- |
+| Official extension build and manifest validation | Passed |
+| Install through Blender into a local extension repository | Passed |
+| Register using `bl_ext.<repository>.infinigen_asset_studio` | Passed |
+| Installer, repair, update and removal actions refused | Passed; the ZIP contains a validation-only worker |
+| Existing runtime validation and Pan self-test | Passed |
+| Asset discovery and Pan generation, seed 212 | Passed |
+| Native scene copy export and separate-process scene opening | Passed |
+| Furnished Living Room, seed 0, Draft, CPU | Generated 127 objects, 106 meshes, 213 materials and 2 cameras in 101.46 s |
+| Disable and re-enable while preserving configuration | Passed |
+| Installed extension directory unchanged after worker operations | Passed after disabling bytecode writes in external workers |
+| Existing pure regression tests | 10 passed |
+
+External workers disable online access and reject Python socket connections. Required
+engine resources must be prepared outside Blender. No engine, runtime, wheels, native
+binaries, generated scenes or machine configuration are included in the extension ZIP.
+
+Run `python scripts/run_extension_validation.py --blender <Blender-4.2-executable>`
+with an ignored `runtime/development.json` specifying an existing worker environment.
+Use `--skip-room` for the asset and scene-opening checks without another full room run.
+The runner creates the disposable configuration directory before launching Blender,
+and the test verifies Blender's actual configuration path before saving preferences.
+
+An initial test used a nonexistent configuration directory. Blender fell back to the
+normal user profile and saved test preferences there. The accidental test repository
+was subsequently removed; prior preferences could not be recovered because no backup
+existed. The corrected runner and path assertion prevent that fallback in future runs.
+The full room completed before a cache-write check failed; the final corrected package
+then passed the separate asset, scene-opening and read-only checks.
+
+Official repository submission and moderator approval are separate from these checks.

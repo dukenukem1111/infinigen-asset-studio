@@ -1,5 +1,13 @@
 # Changelog
 
+## Extension 0.2.1 (submission candidate)
+
+Added a Blender Extensions manifest, GPL distribution with preserved BSD notices,
+official Blender package build and validation, and an existing-installation-only
+setup workflow. The extension omits dependency installation code. Fixed scene
+export and separate scene opening to use Blender's extension namespace. The legacy
+add-on retains managed installation, with downloads respecting Allow Online Access.
+
 ## 0.2.0
 
 Added a persistent installation registry, first-run setup, pinned archive-based managed

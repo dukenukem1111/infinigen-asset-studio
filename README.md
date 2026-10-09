@@ -60,6 +60,17 @@ free disk space and available worker Cycles devices rather than rejecting modest
 
 ## Installation and quick start
 
+### Blender extension
+
+An extension package is available for local testing as
+`infinigen_asset_studio-0.2.1.zip`. It connects to an existing Infinigen installation;
+dependencies must be installed outside Blender. See the
+[extension setup guide](docs/extension_setup.md) and
+[submission notes](docs/extension_submission.md). It has not yet been published
+on Blender's official repository. Disable the legacy add-on before enabling it.
+
+### GitHub legacy add-on
+
 1. Download `InfinigenAssetStudio-0.2.0.zip` from this project's
    [GitHub Releases](https://github.com/dukenukem1111/infinigen-asset-studio/releases)
    when a release is available, or build it with `python scripts/build_release.py`.
@@ -186,7 +197,9 @@ GitHub Actions runs pure tests, validates package structure and builds a version
 ZIP and checksum. Matching `vX.Y.Z` tags attach artifacts to a GitHub Release.
 The public repository is [infinigen-asset-studio](https://github.com/dukenukem1111/infinigen-asset-studio).
 
-Original add-on code is BSD-3-Clause; see [LICENSE](LICENSE).
+Original add-on code and the legacy distribution are BSD-3-Clause; see [LICENSE](LICENSE).
+The extension distribution is GPL-3.0-or-later, with original BSD notices retained;
+see [extension/COPYING](extension/COPYING).
 [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) identifies Princeton's Infinigen
 BSD license, the separate GPL submodule, Blender and managed dependencies.
 Upstream notices stay in downloaded sources. Credits belong to the Infinigen

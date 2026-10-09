@@ -8,6 +8,11 @@ from . import scene_tools
 from .core import write_json
 
 
+def export_formats(self, context):
+    from . import addon
+    return addon.EXPORT_FORMATS
+
+
 class STUDIO_OT_SceneTools(bpy.types.Operator):
     bl_idname = "studio.scene_tools"
     bl_label = "Scene Preparation"
@@ -67,7 +72,7 @@ class STUDIO_OT_SceneExport(bpy.types.Operator, ExportHelper):
     bl_idname = "studio.scene_export"
     bl_label = "Export Scene Copy"
     filename_ext = ""
-    format: EnumProperty(items=lambda self, context: __import__("infinigen_asset_studio.addon", fromlist=["EXPORT_FORMATS"]).EXPORT_FORMATS)
+    format: EnumProperty(items=export_formats)
     preset: EnumProperty(name="Target", items=[("GENERIC", "Generic", "Native coordinate system"), ("UNITY", "Unity", "FBX Y up / -Z forward"), ("UNREAL", "Unreal", "FBX Z up / -Y forward"), ("GODOT", "Godot", "glTF Y up recommended")], default="GENERIC")
     acknowledge: BoolProperty(name="I understand procedural shaders, instances and articulation may not survive", default=False)
 

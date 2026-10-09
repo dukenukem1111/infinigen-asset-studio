@@ -1,0 +1,18 @@
+schema_version = "1.0.0"
+id = "infinigen_asset_studio"
+version = "0.2.1"
+name = "Infinigen Asset Studio"
+tagline = "Generate and customize assets and scenes with external Infinigen"
+maintainer = "dukenukem1111"
+type = "add-on"
+website = "https://github.com/dukenukem1111/infinigen-asset-studio"
+tags = ["Add Mesh", "Object", "User Interface"]
+blender_version_min = "4.2.0"
+blender_version_max = "4.3.0"
+platforms = ["windows-x64", "linux-x64"]
+license = ["SPDX:GPL-3.0-or-later"]
+copyright = ["2026 Infinigen Asset Studio contributors"]
+
+[permissions]
+files = "Read Infinigen sources and save assets, scenes, presets and logs"
+clipboard = "Copy seeds and diagnostic reports at the user's request"
